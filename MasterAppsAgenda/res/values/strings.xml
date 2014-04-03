@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MasterApps Agenda</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_afegir">Afegir contacte</string>
+    <string name="add_contact">Afegir contacte</string>
+    <string name="add_name">Nom</string>
+    <string name="add_dir">Direcció</string>
+    <string name="add_fix">Telèfon fix</string>
+    <string name="add_mobil">Telèfon mobil</string>
+    <string name="add_email">E-mail</string>
+    <string name="add_facebook">Facebook</string>
+    <string name="add_facebook_check">Usa Facebook</string>
+    <string name="add_genere">Genere</string>
+    <string name="add_tipus">Tipus</string>
+    <string name="add_radio_home">Home</string>
+    <string name="add_radio_dona">Dona</string>
+    <string name="add_radio_treball">Treball</string>
+    <string name="add_radio_amic">Amic</string>
+    <string name="add_radio_familia">Familia</string>
+    <string name="add_boto_afegir">Afegir contacte</string>
+    <string name="quit">Sortir</string>
+    <string name="really_quit">Realment vol abandonar l\'aplicació?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="update_entry">Actualitzar dades</string>
+    <string name="ctx_opc1">Editar</string>
+    <string name="ctx_opc2">Esborrar</string>
+
+</resources>
