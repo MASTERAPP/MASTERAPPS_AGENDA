@@ -1,3 +1,2 @@
 
-
-Aplicacion creada con Android
+Aplicacion Android creada con Eclipse
