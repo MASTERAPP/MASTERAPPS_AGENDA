@@ -83,7 +83,13 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int ctx_opc1=0x7f050019;
         public static final int ctx_opc2=0x7f05001a;
+        public static final int deleted=0x7f050020;
+        public static final int entry=0x7f05001f;
         public static final int hello_world=0x7f050002;
+        public static final int msg_added=0x7f05001b;
+        public static final int msg_exist=0x7f05001d;
+        public static final int msg_incorrect=0x7f05001e;
+        public static final int msg_updated=0x7f05001c;
         public static final int no=0x7f050017;
         public static final int quit=0x7f050014;
         public static final int really_quit=0x7f050015;

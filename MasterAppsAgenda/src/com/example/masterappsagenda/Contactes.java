@@ -22,7 +22,7 @@ public  class  Contactes extends Application {
         return true;
     }
     private boolean isValidEmailAddress(String email) {
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(".+@.+\\.[a-z]+");
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
     }
@@ -53,7 +53,7 @@ public  class  Contactes extends Application {
     
     public Boolean addContact(Contacte c) {
     	// Si l'entrada ja existeix, la sobreescriura
-    	// Si l'entrada conte informacio incorrecta tornara fals
+    	// Si l'entrada conte informacio incorrecta, tornara fals
     	// Si afegeix l'entrada tornara cert
     	Boolean trobat = false;
     	Boolean res = false;

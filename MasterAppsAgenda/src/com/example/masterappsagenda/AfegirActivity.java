@@ -54,7 +54,7 @@ public class AfegirActivity extends Activity {
 	    	if (c.genere.compareTo("Home") == 0) {
 	    		((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
 	    	}
-	    	if (c.genere.compareTo("Dona") == 0) {
+	    	else { // Dona
 	    		((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
 	    	}
 	    	
@@ -62,11 +62,13 @@ public class AfegirActivity extends Activity {
 	    	if (c.tipus.compareTo("Treball") == 0) {
 	    		((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
 	    	}
-	    	if (c.tipus.compareTo("Amic") == 0) {
-	    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);
-	    	}
-	    	if (c.tipus.compareTo("Familia") == 0) {
-	    		((RadioButton) findViewById(R.id.radioButton5)).setChecked(true);
+	    	else {
+		    	if (c.tipus.compareTo("Amic") == 0) {
+		    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);
+		    	}
+		    	else { // Familia
+		    		((RadioButton) findViewById(R.id.radioButton5)).setChecked(true);
+		    	}
 	    	}
 	    	
 	    	// Evitem que es pugui canviar el nom
@@ -103,28 +105,28 @@ public class AfegirActivity extends Activity {
 		    	String tipus = (String) radioTipusButton.getText().toString();
 		    	
 		    	// Intentem actualitzar les dades en la variable global
-		    	if (global.isValidContact(new Contacte(nom,dir,fix,mobil,email,facebook,genere,tipus)) == true) {
+		    	if (global.isValidContact(new Contacte(nom,dir,fix,mobil,email,facebook,genere,tipus))) {
 		    		if (global.existContactByName(nom) == false || (iName != null && nom.compareTo(iName) == 0)) {
 				    	if (iName != null) {
 				    		// Estem actualitzant un usuari
-					    	global.addContact(new Contacte(nom,dir,fix,mobil,email,facebook,genere,tipus));
-					    	Toast.makeText(getApplicationContext(), "Entrada actualitzada", Toast.LENGTH_LONG).show();
-					    	finish();
+					    	Toast.makeText(getApplicationContext(), R.string.msg_updated, Toast.LENGTH_LONG).show();
 				    	}
 				    	else {
 				    		// Estem afegint un nou usuari
-					    	global.addContact(new Contacte(nom,dir,fix,mobil,email,facebook,genere,tipus));
-					    	Toast.makeText(getApplicationContext(), "Entrada afegida", Toast.LENGTH_LONG).show();
-				    		finish();
+					    	Toast.makeText(getApplicationContext(), R.string.msg_added, Toast.LENGTH_LONG).show();
 				    	}
+				    	// Afegim l'entrada del contacte
+				    	global.addContact(new Contacte(nom,dir,fix,mobil,email,facebook,genere,tipus));
+				    	finish();
 		    		}
 		    		else {
-		    			Toast.makeText(getApplicationContext(), "El nom ja existeix", Toast.LENGTH_LONG).show();
+		    			Toast.makeText(getApplicationContext(), R.string.msg_exist, Toast.LENGTH_LONG).show();
 		    		}
 		    	}
 		    	else {
-		    		Toast.makeText(getApplicationContext(), "Algun camp conte dades incorrectes", Toast.LENGTH_LONG).show();
+		    		Toast.makeText(getApplicationContext(), R.string.msg_incorrect, Toast.LENGTH_LONG).show();
 		    	}
-	    }});   
+		    }
+	    });   
 	}
 }

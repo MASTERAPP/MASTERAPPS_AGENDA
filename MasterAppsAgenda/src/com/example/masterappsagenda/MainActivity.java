@@ -102,13 +102,13 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Botons del menu principal
-	    switch (item.getItemId()) {
-	        case R.id.add_contact:
-	            Intent myIntent = new Intent( listView.getContext(), AfegirActivity.class);
-	            startActivityForResult(myIntent, 0);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
+	    if (item.getItemId() == R.id.add_contact) {
+            Intent myIntent = new Intent( listView.getContext(), AfegirActivity.class);
+            startActivityForResult(myIntent, 0);
+            return true;
+	    }
+	    else {
+            return super.onOptionsItemSelected(item);
 	    }
 	}
 	
@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
 	        	// Opcio esborrar entrada
 	        	entradaLV = listView.getItemAtPosition(menuInfo.position).toString();
 	        	global.delContactByName(entradaLV);
-	        	Toast.makeText(getApplicationContext(), "Entrada "+entradaLV+" esborrada", Toast.LENGTH_LONG).show();
+	        	Toast.makeText(getApplicationContext(), R.string.entry+" "+entradaLV+" "+R.string.deleted, Toast.LENGTH_LONG).show();
 	            refrescaLlistaContactes();
 	            return true;
 	        default:
