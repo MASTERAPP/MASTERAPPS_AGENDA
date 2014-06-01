@@ -3,14 +3,14 @@
 package com.example.masterappsagenda;
 
 public class Contacte {
-	public String nom;
-	public String direccio;
-	public String fix;
-	public String mobil;
-	public String email;
-	public Boolean facebook;
-	public String genere;
-	public String tipus;
+	private String nom;
+	private String direccio;
+	private String fix;
+	private String mobil;
+	private String email;
+	private Boolean facebook;
+	private String genere;
+	private String tipus;
 	
 	public Contacte() {
 		nom="";
