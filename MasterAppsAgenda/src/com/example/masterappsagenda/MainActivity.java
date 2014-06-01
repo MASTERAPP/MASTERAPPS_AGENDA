@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import com.example.masterappsagenda.R;
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,7 +28,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -50,9 +48,9 @@ public class MainActivity extends Activity {
         // Carguem els contactes globals
         global=((Contactes)getApplicationContext());
         // Afegim contactes inicials
-        global.addContact(new Contacte("Joan","C/Av Lleida 22","973251010","688888888","1@correu.com",true,"Home","Amic"));
-        global.addContact(new Contacte("Alexia","C/Av Lleida 25","973252020","611111111","2@correu.com",true,"Dona","Familia"));
-        global.addContact(new Contacte("Marc","C/Av Lleida 40","973253030","622222222","3@correu.com",false,"Home","Treball"));
+        global.addContact("Joan","C/Av Lleida 22","973251010","688888888","1@correu.com",true,"Home","Amic");
+        global.addContact("Alexia","C/Av Lleida 25","973252020","611111111","2@correu.com",true,"Dona","Familia");
+        global.addContact("Marc","C/Av Lleida 40","973253030","622222222","3@correu.com",false,"Home","Treball");
         
         // Array dels elemets de la llista que es mostraran
         ArrayList<String> ar = global.getContactNames();
@@ -129,18 +127,18 @@ public class MainActivity extends Activity {
 		String entradaLV;
 		// Botons del menu contextual del listView
 	    switch (item.getItemId()) {
-	        case R.id.ctxOpc1:
+	        case R.id.ctxEdit:
 	        	// Opcio editar entrada
 	        	Intent intent = new Intent(MainActivity.this, AfegirActivity.class);
 	        	entradaLV = listView.getItemAtPosition(menuInfo.position).toString();
                 intent.putExtra("SELECTED_NAME", entradaLV);
                 startActivity(intent);
 	            return true;
-	        case R.id.ctxOpc2:
+	        case R.id.ctxDel:
 	        	// Opcio esborrar entrada
 	        	entradaLV = listView.getItemAtPosition(menuInfo.position).toString();
-	        	global.delContactByName(entradaLV);
-	        	Toast.makeText(getApplicationContext(), R.string.entry+" "+entradaLV+" "+R.string.deleted, Toast.LENGTH_LONG).show();
+	        	global.delContact(entradaLV);
+	        	Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.entry)+" "+entradaLV+" "+getApplicationContext().getString(R.string.deleted), Toast.LENGTH_LONG).show();
 	            refrescaLlistaContactes();
 	            return true;
 	        default:
@@ -160,7 +158,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             	// L'usuari ha premut l'opcio Si
-                //Stop the activity
+                // Stop the activity
                 MainActivity.this.finish();
             }
 

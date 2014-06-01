@@ -3,122 +3,59 @@
 package com.example.masterappsagenda;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import android.app.Application;
 
 public  class  Contactes extends Application {
-    private ArrayList<Contacte> cs = new ArrayList<Contacte>();
+    private Hashtable<String,Contacte> data = new Hashtable<String,Contacte>();
 
-    public ArrayList<Contacte> getContacts() {
-    	return cs;
+    public Boolean existContact(String iNom) {
+    	return data.containsKey(iNom);
     }
     
-    private static boolean isNumeric(String str)
-    {
-        for (char c : str.toCharArray())
-        {
-            if (!Character.isDigit(c)) return false;
-        }
-        return true;
-    }
-    private boolean isValidEmailAddress(String email) {
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        java.util.regex.Matcher m = p.matcher(email);
-        return m.matches();
-    }
-    
-    public boolean isValidContact(Contacte c) {
-		if (c.nom.compareTo("") != 0 && ((isNumeric(c.fix) == true) ||
-				(c.fix.compareTo("") == 0)) &&
-				((isNumeric(c.mobil) == true) || (c.mobil.compareTo("") == 0)) &&
-				((isValidEmailAddress(c.email) == true) || (c.email.compareTo("") == 0))) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-    
-    public boolean existContactByName(String iNom) {
-		boolean trobat = false;
-		
-    	// Mirem si el nom esta a l'array actual
-    	for (int i = 0; i < cs.size() && !trobat; i++) {
-			if (cs.get(i).nom.compareTo(iNom) == 0) {
-				trobat = true;
-			}
-		}
-    	return trobat;
-    }
-    
-    public Boolean addContact(Contacte c) {
+    public Boolean addContact(String nom2, String direccio2, String fix2, String mobil2, String email2, Boolean facebook2, String genere2, String tipus2) {
     	// Si l'entrada ja existeix, la sobreescriura
     	// Si l'entrada conte informacio incorrecta, tornara fals
     	// Si afegeix l'entrada tornara cert
-    	Boolean trobat = false;
     	Boolean res = false;
-    	ArrayList<Contacte> ar = new ArrayList<Contacte>();
-    	
-    	// Comprovacio dels camp
-    	if (isValidContact(c)) {
-    		// Mirem si el nom esta a l'array actual
-	    	for (int i = 0; i < cs.size(); i++) {
-				if (cs.get(i).nom.compareTo(c.nom) == 0) {
-					trobat = true;
-					ar.add(c);
-				}
-				else {
-					ar.add(cs.get(i));
-				}
-			}
-	    	if (!trobat) {
-	    		ar.add(c);
-	    	}
-	    	this.cs = ar;
-	    	res = true;
+    	Contacte con = new Contacte(nom2, direccio2, fix2, mobil2, email2, facebook2, genere2, tipus2);
+    	if (con.isValidContact()) {
+    		data.remove(nom2);
+    		data.put(nom2, con);
+    		res = true;
     	}
     	return res;
     }
 
-    public Boolean delContactByName(String iNom) {
-    	Boolean trobat = false;
-    	Boolean res = false;
-    	ArrayList<Contacte> ar = new ArrayList<Contacte>();
-    	// Comprovacio dels camp
-    	if (iNom.compareTo("") != 0) {
-    		// Mirem si el nom esta a l'array actual
-	    	for (int i = 0; i < cs.size(); i++) {
-				if (cs.get(i).nom.compareTo(iNom) == 0) {
-					trobat = true;
-				}
-				else {
-					ar.add(cs.get(i));
-				}
-			}
-	    	this.cs = ar;
-	    	res = trobat;
-    	}
+    public Boolean delContact(String iNom) {
+    	Boolean res = data.containsKey(iNom);
+    	data.remove(iNom);
     	return res;
     }
-    
-    public Contacte getContacteByName(String iNom) {
-		Boolean trobat = false;
-		Contacte res = new Contacte();
-		// Mirem si el nom esta a l'array actual
-    	for (int i = 0; i < cs.size() && !trobat; i++) {
-			if (cs.get(i).nom.compareTo(iNom) == 0) {
-				trobat = true;
-				res = cs.get(i);
-			}
-		}
-    	return res;
-    }
-    
     public ArrayList<String> getContactNames() {
-    	ArrayList<String> ar = new ArrayList<String>();
-    	for (int i = 0; i < cs.size(); i++) {
-			ar.add(cs.get(i).nom);
-		}
-    	return ar;
+    	return new ArrayList<String>(data.keySet());
+    }
+    
+    public String getDireccio(String iNom) {
+    	return data.get(iNom).getDireccio();
+    }
+    public String getFix(String iNom) {
+    	return data.get(iNom).getFix();
+    }
+    public String getMobil(String iNom) {
+    	return data.get(iNom).getMobil();
+    }
+    public String getEmail(String iNom) {
+    	return data.get(iNom).getEmail();
+    }
+    public Boolean getFacebook(String iNom) {
+    	return data.get(iNom).getFacebook();
+    }
+    public String getGenere(String iNom) {
+    	return data.get(iNom).getGenere();
+    }
+    public String getTipus(String iNom) {
+    	return data.get(iNom).getTipus();
     }
 }

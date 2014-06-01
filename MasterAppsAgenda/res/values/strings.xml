@@ -26,10 +26,10 @@
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="update_entry">Actualitzar dades</string>
-    <string name="ctx_opc1">Editar</string>
-    <string name="ctx_opc2">Esborrar</string>
+    <string name="ctx_edit">Editar</string>
+    <string name="ctx_del">Esborrar</string>
     
-	<string name="msg_added">Entrada agefida</string>
+	<string name="msg_added">Entrada afegida</string>
 	<string name="msg_updated">Entrada actualitzada</string>
 	<string name="msg_exist">El nom ja existeix</string>
 	<string name="msg_incorrect">Algun camp conte dades incorrectes</string>

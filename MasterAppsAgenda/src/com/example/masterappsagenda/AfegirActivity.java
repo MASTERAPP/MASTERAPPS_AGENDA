@@ -6,9 +6,6 @@ import com.example.masterappsagenda.R;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,12 +13,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 
 public class AfegirActivity extends Activity {
 
@@ -40,59 +33,58 @@ public class AfegirActivity extends Activity {
 		if (iName != null) {
 			// Venim d'haver clicat una entrada de la llista
 			// Busquem el contacte en la variable global
-			Contacte c = global.getContacteByName(iName);
 			
 			// Printem els resultats
-			((EditText) findViewById(R.id.editText1)).setText(c.nom);
-	    	((EditText) findViewById(R.id.editText2)).setText(c.direccio);
-	    	((EditText) findViewById(R.id.editText3)).setText(c.fix);
-	    	((EditText) findViewById(R.id.editText4)).setText(c.mobil);
-	    	((EditText) findViewById(R.id.editText5)).setText(c.email);
-	    	((CheckBox) findViewById(R.id.checkBox1)).setChecked(c.facebook);
+			((EditText) findViewById(R.id.editTextNom)).setText(iName);
+	    	((EditText) findViewById(R.id.editTextDireccio)).setText(global.getDireccio(iName));
+	    	((EditText) findViewById(R.id.editTextFix)).setText(global.getFix(iName));
+	    	((EditText) findViewById(R.id.editTextMobil)).setText(global.getMobil(iName));
+	    	((EditText) findViewById(R.id.editTextEmail)).setText(global.getEmail(iName));
+	    	((CheckBox) findViewById(R.id.checkBoxFacebook)).setChecked(global.getFacebook(iName));
 	    	
 	    	// Radio grup genere
-	    	if (c.genere.compareTo("Home") == 0) {
-	    		((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
+	    	if (global.getGenere(iName).compareTo("Home") == 0) {
+	    		((RadioButton) findViewById(R.id.radioButtonHome)).setChecked(true);
 	    	}
 	    	else { // Dona
-	    		((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
+	    		((RadioButton) findViewById(R.id.radioButtonDona)).setChecked(true);
 	    	}
 	    	
 	    	// Radio grup tipus
-	    	if (c.tipus.compareTo("Treball") == 0) {
-	    		((RadioButton) findViewById(R.id.radioButton3)).setChecked(true);
+	    	if (global.getTipus(iName).compareTo("Treball") == 0) {
+	    		((RadioButton) findViewById(R.id.radioButtonTreball)).setChecked(true);
 	    	}
 	    	else {
-		    	if (c.tipus.compareTo("Amic") == 0) {
-		    		((RadioButton) findViewById(R.id.radioButton4)).setChecked(true);
+		    	if (global.getTipus(iName).compareTo("Amic") == 0) {
+		    		((RadioButton) findViewById(R.id.radioButtonAmic)).setChecked(true);
 		    	}
 		    	else { // Familia
-		    		((RadioButton) findViewById(R.id.radioButton5)).setChecked(true);
+		    		((RadioButton) findViewById(R.id.radioButtonFamilia)).setChecked(true);
 		    	}
 	    	}
 	    	
 	    	// Evitem que es pugui canviar el nom
-	    	((EditText) findViewById(R.id.editText1)).setEnabled(false);
+	    	((EditText) findViewById(R.id.editTextNom)).setEnabled(false);
 	    	
 	    	// Canviem el text del boto
-	    	((Button)findViewById(R.id.button1)).setText(R.string.update_entry);
+	    	((Button)findViewById(R.id.buttonAfegir)).setText(R.string.update_entry);
 	    	// Situem el focus en el camp de direccio
-	    	((EditText) findViewById(R.id.editText2)).requestFocus();
+	    	((EditText) findViewById(R.id.editTextDireccio)).requestFocus();
 		}
 		
 		// Codi del boto afegir contacte
-	    Button button1 = (Button)findViewById(R.id.button1);
-	    button1.setOnClickListener(new OnClickListener(){
+	    Button buttonAfegir = (Button)findViewById(R.id.buttonAfegir);
+	    buttonAfegir.setOnClickListener(new OnClickListener(){
 		    @Override
 		    public void onClick(View arg0) {
 		    	// Al fer click al boto
 		    	// Llegim les dades del formulari
-		    	String nom = ((EditText) findViewById(R.id.editText1)).getText().toString();
-		    	String dir = ((EditText) findViewById(R.id.editText2)).getText().toString();
-		    	String fix = ((EditText) findViewById(R.id.editText3)).getText().toString();
-		    	String mobil = ((EditText) findViewById(R.id.editText4)).getText().toString();
-		    	String email = ((EditText) findViewById(R.id.editText5)).getText().toString();
-		    	Boolean facebook = ((CheckBox) findViewById(R.id.checkBox1)).isChecked();
+		    	String nom = ((EditText) findViewById(R.id.editTextNom)).getText().toString();
+		    	String direccio = ((EditText) findViewById(R.id.editTextDireccio)).getText().toString();
+		    	String fix = ((EditText) findViewById(R.id.editTextFix)).getText().toString();
+		    	String mobil = ((EditText) findViewById(R.id.editTextMobil)).getText().toString();
+		    	String email = ((EditText) findViewById(R.id.editTextEmail)).getText().toString();
+		    	Boolean facebook = ((CheckBox) findViewById(R.id.checkBoxFacebook)).isChecked();
 		    	
 		    	RadioGroup radioGenereGroup = (RadioGroup) findViewById(R.id.radioGenereGroup);
 		    	int selectedId = radioGenereGroup.getCheckedRadioButtonId();
@@ -104,27 +96,26 @@ public class AfegirActivity extends Activity {
 		    	RadioButton radioTipusButton = (RadioButton) findViewById(selectedId);
 		    	String tipus = (String) radioTipusButton.getText().toString();
 		    	
-		    	// Intentem actualitzar les dades en la variable global
-		    	if (global.isValidContact(new Contacte(nom,dir,fix,mobil,email,facebook,genere,tipus))) {
-		    		if (global.existContactByName(nom) == false || (iName != null && nom.compareTo(iName) == 0)) {
+		    	// Commit contact data
+		    	if (global.existContact(nom) == false || iName != null) {
+		    		if (global.addContact(nom, direccio, fix, mobil, email, facebook, genere, tipus)) {
 				    	if (iName != null) {
-				    		// Estem actualitzant un usuari
+				    		// Updating contact
 					    	Toast.makeText(getApplicationContext(), R.string.msg_updated, Toast.LENGTH_LONG).show();
 				    	}
 				    	else {
-				    		// Estem afegint un nou usuari
+				    		// New contact
 					    	Toast.makeText(getApplicationContext(), R.string.msg_added, Toast.LENGTH_LONG).show();
-				    	}
-				    	// Afegim l'entrada del contacte
-				    	global.addContact(new Contacte(nom,dir,fix,mobil,email,facebook,genere,tipus));
+				    	}			
 				    	finish();
 		    		}
 		    		else {
-		    			Toast.makeText(getApplicationContext(), R.string.msg_exist, Toast.LENGTH_LONG).show();
+		    			Toast.makeText(getApplicationContext(), R.string.msg_incorrect, Toast.LENGTH_LONG).show();
 		    		}
 		    	}
 		    	else {
-		    		Toast.makeText(getApplicationContext(), R.string.msg_incorrect, Toast.LENGTH_LONG).show();
+		    		// New contact and it already exists
+		    		Toast.makeText(getApplicationContext(), R.string.msg_exist, Toast.LENGTH_LONG).show();
 		    	}
 		    }
 	    });   

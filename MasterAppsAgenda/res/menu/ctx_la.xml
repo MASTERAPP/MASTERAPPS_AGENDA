@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	<item android:id="@+id/ctxOpc1"
-	    android:title="@string/ctx_opc1"></item>
-	<item android:id="@+id/ctxOpc2"
-	    android:title="@string/ctx_opc2"></item>
+	<item android:id="@+id/ctxEdit"
+	    android:title="@string/ctx_edit"></item>
+	<item android:id="@+id/ctxDel"
+	    android:title="@string/ctx_del"></item>
  
 </menu>
